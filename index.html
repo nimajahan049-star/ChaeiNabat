@@ -3,146 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منوی ضیافت رمضان | کافه چای نبات</title>
+    <title>منوی ضیافت | کافه چای نبات</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Lalezar&display=swap');
-
-        :root {
-            --gold: #d4af37;
-            --deep-blue: #0a1931;
-            --accent-gold: #ffdf00;
-        }
-
-        body {
-            margin: 0;
-            background: var(--deep-blue) url('https://www.transparenttextures.com/patterns/stardust.png');
-            color: #fff;
-            font-family: 'Tahoma', sans-serif;
-            line-height: 1.6;
-        }
-
-        /* دکمه موزیک */
-        #music-btn {
-            position: fixed; bottom: 20px; left: 20px; z-index: 1000;
-            background: var(--gold); border: none; border-radius: 50%;
-            width: 50px; height: 50px; font-size: 20px; cursor: pointer;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
-        }
-
-        .hero-section {
-            background: linear-gradient(rgba(10, 25, 49, 0.8), rgba(10, 25, 49, 0.8)), 
-                        url('https://www.transparenttextures.com/patterns/leather.png');
-            padding: 40px 20px;
-            text-align: center;
-            border-bottom: 3px solid var(--gold);
-        }
-
-        .cafe-logo {
-            width: 140px; height: 140px;
-            border-radius: 50%;
-            border: 4px solid var(--gold);
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
-            margin-bottom: 15px;
-            object-fit: cover;
-        }
-
-        h1 { font-family: 'Lalezar', cursive; color: var(--gold); font-size: 35px; margin: 10px 0; }
-
-        .status-badge {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--gold);
-            padding: 5px 15px;
-            border-radius: 20px; font-size: 13px;
-            display: inline-block; margin-bottom: 20px;
-        }
-
-        .menu-container { padding: 20px; max-width: 500px; margin: auto; }
-
-        .category-btn {
-            width: 100%; padding: 18px; margin: 10px 0;
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            border-radius: 15px; font-size: 18px;
-            font-weight: bold; cursor: pointer;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-
-        .content-box {
-            display: none;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            padding: 20px; border-radius: 0 0 15px 15px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            margin-top: -10px;
-        }
-
-        .food-item { margin-bottom: 20px; text-align: right; }
-        .food-item h4 { color: var(--accent-gold); margin: 0; font-size: 18px; }
-
-        .reserve-section {
-            background: var(--gold); color: var(--deep-blue);
-            margin: 30px 20px; padding: 20px; border-radius: 20px; text-align: center;
-        }
-
-        .reserve-btn {
-            background: var(--deep-blue); color: #fff;
-            padding: 12px 30px; border-radius: 50px;
-            text-decoration: none; font-weight: bold;
-            display: inline-block; margin-top: 10px;
-        }
+        body { margin: 0; padding: 0; background: #050a14; color: #fff; font-family: 'Tahoma', sans-serif; text-align: center; overflow-x: hidden; }
+        .stars-background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, #0a1931 0%, #000 100%); z-index: -1; }
+        .stars-background::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); animation: twinkle 5s infinite linear; }
+        @keyframes twinkle { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+        .moon-header { padding: 40px 20px; background: linear-gradient(to bottom, rgba(212, 175, 55, 0.1), transparent); border-bottom: 1px solid rgba(212, 175, 55, 0.3); }
+        .logo-wrapper { position: relative; width: 160px; height: 160px; margin: 0 auto; }
+        .moon-crescent { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; box-shadow: -12px 4px 0 0 #d4af37; filter: drop-shadow(0 0 15px #d4af37); animation: glow-pulse 4s infinite ease-in-out; }
+        .main-logo { width: 140px; height: 140px; border-radius: 50%; border: 2px solid rgba(212, 175, 55, 0.5); object-fit: cover; margin-top: 10px; }
+        @keyframes glow-pulse { 0%, 100% { opacity: 0.7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.05); } }
+        h1 { font-family: 'Lalezar', cursive; color: #d4af37; font-size: 38px; margin: 15px 0 5px; }
+        .category-container { padding: 15px; max-width: 480px; margin: auto; }
+        .menu-btn { width: 100%; padding: 16px; margin: 10px 0; background: rgba(10, 25, 49, 0.85); border: 1px solid #d4af37; border-radius: 15px; color: #d4af37; font-size: 19px; font-family: 'Lalezar'; cursor: pointer; display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(8px); }
+        .items-box { display: none; background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 0 0 15px 15px; border: 1px solid rgba(212, 175, 55, 0.2); margin-top: -11px; text-align: right; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .food-item { border-bottom: 1px dashed rgba(212, 175, 55, 0.2); padding: 12px 0; }
+        .food-item:last-child { border-bottom: none; }
+        .food-title { color: #ffdf00; font-weight: bold; font-size: 17px; }
+        .food-desc { font-size: 13px; color: #ddd; margin-top: 5px; line-height: 1.7; text-align: justify; }
+        .info-container { margin: 20px; padding: 15px; background: rgba(212, 175, 55, 0.05); border-radius: 15px; border: 1px solid rgba(212, 175, 55, 0.2); font-size: 14px; line-height: 1.8; color: #ccc; }
+        .map-button { display: inline-block; margin-top: 10px; padding: 8px 20px; background: #d4af37; color: #050a14; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 13px; font-family: 'Lalezar'; }
+        .footer-call { background: #d4af37; color: #0a1931; padding: 14px 40px; border-radius: 50px; font-weight: bold; text-decoration: none; display: inline-block; margin: 15px 0; font-size: 18px; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); font-family: 'Lalezar'; }
+        .insta-btn { display: block; background: rgba(225, 48, 108, 0.2); color: #fff; text-decoration: none; padding: 12px; border-radius: 12px; border: 1px solid #e1306c; margin: 10px 20px; font-family: 'Lalezar'; }
     </style>
 </head>
-<body>
+<body onclick="autoPlay()"> <div class="stars-background"></div>
+    <div class="moon-header">
+        <div class="logo-wrapper">
+            <div class="moon-crescent"></div>
+            <img src="https://i.postimg.cc/RZhSKFgC/Screenshot-2026-02-21-03-01-30-478-com-miui-gallery-edit.jpg" class="main-logo">
+        </div>
+        <h1>کافه چای نبات</h1>
+        <p style="color: #d4af37; font-size: 14px;">✨ ضیافت شبانه از افطار تا سحر ✨</p>
+    </div>
 
-<audio id="bgMusic" loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-</audio>
-<button id="music-btn" onclick="toggleMusic()">🎵</button>
+    <a href="https://www.instagram.com/chaeinabat.cafe" target="_blank" class="insta-btn">📸 اینستاگرام: chaeinabat.cafe</a>
 
-<div class="hero-section">
-    <img src="https://files.catbox.moe/k36s1g.jpg" alt="کافه چای نبات" class="cafe-logo">
-    <h1>کافه چای نبات</h1>
-    <div class="status-badge">⏰ ۱ ساعت قبل افطار تا نیم‌ساعت قبل سحر</div>
-    <p style="font-style: italic;">"طعم اصیل ماه رمضان در پاتوق همیشگی شما"</p>
-</div>
+    <div class="category-container">
+        <div class="menu-btn" onclick="toggleMenu('sahari')">🍱 میزبان سحری <span>▼</span></div>
+        <div id="sahari" class="items-box">
+            <div class="food-item"><div class="food-title">بشقاب پروتئین</div><div class="food-desc">شامل ۲ عدد تخم‌مرغ (آب‌پز یا نیمرو)، قارچ کبابی، لوبیای گرم، پنیر به همراه کاهو یا خیار و گوجه.</div></div>
+            <div class="food-item"><div class="food-title">املت مخصوص با نان کامل</div><div class="food-desc">املت گوجه‌فرنگی یا املت تن‌ماهی و پنیر که با نان سنگک سرو می‌شود.</div></div>
+        </div>
 
-<div class="menu-container">
-    <button class="category-btn" onclick="toggle('sahari')">🌙 منوی ویژه سحر <span>▼</span></button>
-    <div id="sahari" class="content-box">
-        <div class="food-item">
-            <h4>بشقاب پروتئین (ضد عطش)</h4>
-            <p>۲ تخم‌مرغ، قارچ کبابی، لوبیای گرم، پنیر حلومی و زیتون</p>
+        <div class="menu-btn" onclick="toggleMenu('eftar')">🌙 ضیافت افطار (سنتی) <span>▼</span></div>
+        <div id="eftar" class="items-box">
+            <div class="food-item"><div class="food-title">سینی مقوی</div><div class="food-desc">شامل ارده و شیره، حلوا ارده، کره محلی و عسل، به همراه تخم‌مرغ عسلی.</div></div>
+            <div class="food-item"><div class="food-title">نوشیدنی‌های گرم</div><div class="food-desc">شامل چای نبات و هل، شیر گرم و عسل با دارچین.</div></div>
+        </div>
+
+        <div class="menu-btn" onclick="toggleMenu('travel')">🚗 همسفر افطار (پکیج سریع) <span>▼</span></div>
+        <div id="travel" class="items-box">
+            <div class="food-item"><div class="food-title">🎁 هدایای همراه</div><div class="food-desc">۳ عدد خرما، یک بسته کوچک آجیل، یک فنجان چای رایگان.</div></div>
+        </div>
+
+        <div class="menu-btn" onclick="toggleMenu('sweet')">🍰 شیرین‌کام (دسر و کیک) <span>▼</span></div>
+        <div id="sweet" class="items-box">
+            <div class="food-item"><div class="food-title">سنتی</div><div class="food-desc">شله‌زرد ممتاز و فرنی داغ.</div></div>
+        </div>
+
+        <div class="menu-btn" onclick="toggleMenu('cold')">🍹 نوش‌داروی خنک <span>▼</span></div>
+        <div id="cold" class="items-box">
+            <div class="food-item"><div class="food-title">خاص و نوین</div><div class="food-desc">ترکیب‌های نوین زعفران، نارگیل، کارامل و وانیل.</div></div>
+        </div>
+
+        <div class="menu-btn" onclick="toggleMenu('fun')" style="border-color: #00d4ff;">🎬 شبستانِ سرگرمی <span>▼</span></div>
+        <div id="fun" class="items-box">
+            <div class="food-item"><div class="food-title">سینما و فوتبال</div><div class="food-desc">پخش بازی‌های زنده فوتبال (ساعت ۲۱ الی ۳ بامداد).</div></div>
+        </div>
+
+        <div class="menu-btn" onclick="toggleMenu('hookah')">💨 محفلِ قلیان <span>▼</span></div>
+        <div id="hookah" class="items-box">
+            <div class="food-item"><div class="food-title">منوی دود</div><div class="food-desc">دوسیب، پرتقال نعنا، لیمو نعنا، تمشک بستنی و...</div></div>
         </div>
     </div>
 
-    <button class="category-btn" onclick="toggle('eftari')">⭐ منوی ویژه افطار <span>▼</span></button>
-    <div id="eftari" class="content-box">
-        <div class="food-item">
-            <h4>سینی کلاسیک افطار</h4>
-            <p>نان سنگک، پنیر لیقوان، گردو، سبزی خوردن، خرما و زولبیا بامیه</p>
-        </div>
+    <div class="info-container">
+        🕒 <b>ساعت کاری:</b> ۷ صبح تا ۳ بامداد<br>
+        📍 <b>آدرس:</b> کرج، دهقان ویلا دوم، خیابان شهید نیاکی<br>
+        <a href="#" class="map-button">🗺️ مسیریابی روی نقشه</a>
     </div>
-</div>
 
-<div class="reserve-section">
-    <h3>📱 رزرو آنلاین میز و سفارش</h3>
-    <a href="tel:09120000000" class="reserve-btn">📞 تماس سریع برای رزرو</a>
-</div>
+    <a href="tel:09012323253" class="footer-call">📞 تماس و رزرو: ۰۹۰۱۲۳۲۳۲۵۳</a>
 
-<script>
-    function toggle(id) {
-        let box = document.getElementById(id);
-        box.style.display = (box.style.display === 'block') ? 'none' : 'block';
-    }
+    <audio id="bgMusic" loop preload="auto">
+        <source src="https://files.catbox.moe/go3tk5.mp3" type="audio/mpeg">
+    </audio>
+    <button onclick="playMusic()" id="mBtn" style="position:fixed; bottom:25px; left:25px; border-radius:50%; width:60px; height:60px; background:#d4af37; border:none; font-size:25px; cursor:pointer; box-shadow: 0 0 20px #d4af37; z-index: 1000;">🎵</button>
 
-    function toggleMusic() {
-        let music = document.getElementById("bgMusic");
-        let btn = document.getElementById("music-btn");
-        if (music.paused) { music.play(); btn.innerHTML = "⏸️"; } 
-        else { music.pause(); btn.innerHTML = "🎵"; }
-    }
-</script>
+    <script>
+        var hasStarted = false;
+        function autoPlay() {
+            if (!hasStarted) {
+                playMusic();
+                hasStarted = true;
+            }
+        }
 
+        function toggleMenu(id) {
+            var x = document.getElementById(id);
+            var boxes = document.getElementsByClassName('items-box');
+            for(var i=0; i<boxes.length; i++) { if(boxes[i].id !== id) boxes[i].style.display = 'none'; }
+            x.style.display = (x.style.display === "block") ? "none" : "block";
+        }
+
+        function playMusic() {
+            var audio = document.getElementById("bgMusic");
+            var btn = document.getElementById("mBtn");
+            if (audio.paused) { 
+                audio.play().catch(function(error) { console.log("Auto-play prevented"); });
+                btn.innerHTML = "⏸️"; 
+            } else { 
+                audio.pause(); 
+                btn.innerHTML = "🎵"; 
+            }
+        }
+    </script>
 </body>
 </html>
