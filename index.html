@@ -3,124 +3,447 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منوی ضیافت | کافه چای نبات</title>
+    <title>کافه چای نبات | تلفیق چرم، طلا و سنت</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Lalezar&display=swap');
-        body { margin: 0; padding: 0; background: #050a14; color: #fff; font-family: 'Tahoma', sans-serif; text-align: center; overflow-x: hidden; }
-        .stars-background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, #0a1931 0%, #000 100%); z-index: -1; }
-        .stars-background::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); animation: twinkle 5s infinite linear; }
-        @keyframes twinkle { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
-        .moon-header { padding: 40px 20px; background: linear-gradient(to bottom, rgba(212, 175, 55, 0.1), transparent); border-bottom: 1px solid rgba(212, 175, 55, 0.3); }
-        .logo-wrapper { position: relative; width: 160px; height: 160px; margin: 0 auto; }
-        .moon-crescent { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; box-shadow: -12px 4px 0 0 #d4af37; filter: drop-shadow(0 0 15px #d4af37); animation: glow-pulse 4s infinite ease-in-out; }
-        .main-logo { width: 140px; height: 140px; border-radius: 50%; border: 2px solid rgba(212, 175, 55, 0.5); object-fit: cover; margin-top: 10px; }
-        @keyframes glow-pulse { 0%, 100% { opacity: 0.7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.05); } }
-        h1 { font-family: 'Lalezar', cursive; color: #d4af37; font-size: 38px; margin: 15px 0 5px; }
-        .category-container { padding: 15px; max-width: 480px; margin: auto; }
-        .menu-btn { width: 100%; padding: 16px; margin: 10px 0; background: rgba(10, 25, 49, 0.85); border: 1px solid #d4af37; border-radius: 15px; color: #d4af37; font-size: 19px; font-family: 'Lalezar'; cursor: pointer; display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(8px); }
-        .items-box { display: none; background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 0 0 15px 15px; border: 1px solid rgba(212, 175, 55, 0.2); margin-top: -11px; text-align: right; animation: fadeIn 0.3s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .food-item { border-bottom: 1px dashed rgba(212, 175, 55, 0.2); padding: 12px 0; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: #2c1e1a;
+            color: #f0e6d2;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+        .leather-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, rgba(70,40,30,0.9), rgba(40,20,10,0.95)),
+                        url('https://www.transparenttextures.com/patterns/leather.png');
+            background-size: cover, auto;
+            z-index: -2;
+        }
+        .leather-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(212,175,55,0.15), transparent 60%);
+            z-index: -1;
+            animation: goldGlow 8s infinite alternate;
+        }
+        @keyframes goldGlow { 0% { opacity: 0.3; } 100% { opacity: 0.7; } }
+        .pattern {
+            background-image: url('https://www.transparenttextures.com/patterns/arabesque.png');
+            opacity: 0.1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .header-khatam {
+            padding: 40px 20px;
+            text-align: center;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(5px);
+            border-bottom: 3px solid #d4af37;
+            box-shadow: 0 10px 30px rgba(212,175,55,0.3);
+            position: relative;
+        }
+        .header-khatam::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(90deg, #d4af37, #b8860b, #d4af37);
+            opacity: 0.5;
+        }
+        .header-khatam::after {
+            content: '✦ ✦ ✦';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #d4af37;
+            font-size: 1.5rem;
+            letter-spacing: 5px;
+        }
+        .logo-wrapper {
+            position: relative;
+            width: 240px;
+            height: 240px;
+            margin: 0 auto 25px;
+        }
+        .gold-frame {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 220px;
+            height: 220px;
+            border: 4px solid #d4af37;
+            border-radius: 50%;
+            box-shadow: 0 0 30px #d4af37, inset 0 0 20px #b8860b;
+            animation: rotateFrame 20s infinite linear;
+            box-sizing: border-box;
+            pointer-events: none;
+        }
+        @keyframes rotateFrame { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .main-logo {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            border: 6px solid #8b5a2b;
+            object-fit: cover;
+            position: relative;
+            z-index: 2;
+        }
+        h1 {
+            font-family: 'Lalezar', cursive;
+            font-size: 4rem;
+            color: #d4af37;
+            text-shadow: 2px 2px 4px #000, 0 0 20px #b8860b;
+            margin: 15px 0 5px;
+            letter-spacing: 2px;
+        }
+        .slogan {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            color: #f0e6d2;
+            font-size: 1.3rem;
+        }
+        .slogan i { color: #d4af37; font-size: 1.6rem; }
+        .ramadan-badge {
+            display: inline-block;
+            background: #8b5a2b;
+            border: 2px solid #d4af37;
+            border-radius: 50px;
+            padding: 8px 35px;
+            font-size: 1.4rem;
+            color: #d4af37;
+            box-shadow: 0 0 20px #d4af37;
+            margin-top: 15px;
+            font-family: 'Lalezar', cursive;
+        }
+        .category-container {
+            max-width: 550px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .menu-btn {
+            width: 100%;
+            padding: 20px 25px;
+            margin: 15px 0;
+            background: #4a2c2c;
+            border: 2px solid #d4af37;
+            border-radius: 100px;
+            color: #f0e6d2;
+            font-family: 'Lalezar', cursive;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 0 #2b1a1a, 0 8px 20px rgba(0,0,0,0.5);
+            position: relative;
+            transition: 0.3s;
+            border-top-color: #f5e6b2;
+            border-left-color: #b8860b;
+        }
+        .menu-btn::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border: 1px dashed #d4af37;
+            border-radius: 100px;
+            pointer-events: none;
+        }
+        .menu-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 0 #2b1a1a, 0 15px 30px #d4af37;
+        }
+        .items-box {
+            display: none;
+            background: rgba(70,40,30,0.7);
+            backdrop-filter: blur(10px);
+            border: 2px solid #d4af37;
+            border-radius: 50px 50px 30px 30px;
+            padding: 25px;
+            margin-top: -20px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 50px rgba(212,175,55,0.3), inset 0 0 20px rgba(212,175,55,0.2);
+        }
+        .food-item {
+            border-bottom: 1px solid #d4af37;
+            padding: 15px 0;
+        }
         .food-item:last-child { border-bottom: none; }
-        .food-title { color: #ffdf00; font-weight: bold; font-size: 17px; }
-        .food-desc { font-size: 13px; color: #ddd; margin-top: 5px; line-height: 1.7; text-align: justify; }
-        .info-container { margin: 20px; padding: 15px; background: rgba(212, 175, 55, 0.05); border-radius: 15px; border: 1px solid rgba(212, 175, 55, 0.2); font-size: 14px; line-height: 1.8; color: #ccc; }
-        .map-button { display: inline-block; margin-top: 10px; padding: 8px 20px; background: #d4af37; color: #050a14; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 13px; font-family: 'Lalezar'; }
-        .footer-call { background: #d4af37; color: #0a1931; padding: 14px 40px; border-radius: 50px; font-weight: bold; text-decoration: none; display: inline-block; margin: 15px 0; font-size: 18px; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); font-family: 'Lalezar'; }
-        .insta-btn { display: block; background: rgba(225, 48, 108, 0.2); color: #fff; text-decoration: none; padding: 12px; border-radius: 12px; border: 1px solid #e1306c; margin: 10px 20px; font-family: 'Lalezar'; }
+        .food-title {
+            color: #d4af37;
+            font-size: 1.3rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .food-title i { font-size: 1.5rem; color: #8b5a2b; text-shadow: 0 0 5px #d4af37; }
+        .food-desc {
+            color: #f0e6d2;
+            font-size: 1rem;
+            text-align: justify;
+            margin-top: 8px;
+            padding-right: 35px;
+        }
+        .info-container {
+            background: rgba(70,40,30,0.8);
+            backdrop-filter: blur(5px);
+            border: 2px solid #d4af37;
+            border-radius: 50px;
+            padding: 25px;
+            margin: 30px 20px;
+            color: #f0e6d2;
+            box-shadow: 0 0 60px #d4af37;
+            text-align: center;
+        }
+        .map-button {
+            display: inline-block;
+            background: #8b5a2b;
+            border: 2px solid #d4af37;
+            color: #d4af37;
+            padding: 12px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .map-button:hover { background: #d4af37; color: #2c1e1a; box-shadow: 0 0 30px #d4af37; }
+        .footer-call {
+            display: inline-block;
+            background: #d4af37;
+            color: #2c1e1a;
+            padding: 15px 60px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-family: 'Lalezar', cursive;
+            font-size: 1.8rem;
+            margin: 20px;
+            box-shadow: 0 0 50px #d4af37;
+            border: 3px solid #b8860b;
+        }
+        .insta-btn {
+            display: block;
+            background: rgba(212,175,55,0.1);
+            border: 2px solid #d4af37;
+            color: #f0e6d2;
+            padding: 12px;
+            border-radius: 100px;
+            margin: 20px;
+            text-decoration: none;
+            font-family: 'Lalezar', cursive;
+            font-size: 1.3rem;
+            transition: 0.3s;
+        }
+        .insta-btn i { color: #d4af37; margin-left: 10px; }
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #d4af37;
+            font-size: 1rem;
+            border-top: 1px solid #d4af37;
+            position: relative;
+        }
+        footer::before {
+            content: '✦ ✦ ✦';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #d4af37;
+            font-size: 1.5rem;
+            background: #2c1e1a;
+            padding: 0 20px;
+        }
+        #mBtn {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #d4af37;
+            border: 4px solid #b8860b;
+            font-size: 35px;
+            cursor: pointer;
+            box-shadow: 0 0 60px #d4af37;
+            z-index: 1000;
+            transition: 0.3s;
+            color: #2c1e1a;
+        }
+        #mBtn:hover { transform: scale(1.1) rotate(5deg); }
     </style>
 </head>
-<body onclick="autoPlay()"> <div class="stars-background"></div>
-    <div class="moon-header">
+<body>
+    <div class="leather-bg"></div>
+    <div class="pattern"></div>
+
+    <div class="header-khatam">
         <div class="logo-wrapper">
-            <div class="moon-crescent"></div>
-            <img src="https://i.postimg.cc/RZhSKFgC/Screenshot-2026-02-21-03-01-30-478-com-miui-gallery-edit.jpg" class="main-logo">
+            <div class="gold-frame"></div>
+            <img src="https://i.postimg.cc/RZhSKFgC/Screenshot-2026-02-21-03-01-30-478-com-miui-gallery-edit.jpg" class="main-logo" alt="کافه چای نبات">
         </div>
         <h1>کافه چای نبات</h1>
-        <p style="color: #d4af37; font-size: 14px;">✨ ضیافت شبانه از افطار تا سحر ✨</p>
+        <div class="slogan">
+            <i class="fas fa-star-and-crescent"></i>
+            <span>تلفیق اصالت و مدرنیته</span>
+            <i class="fas fa-star-and-crescent"></i>
+        </div>
+        <div class="ramadan-badge">
+            <i class="fas fa-moon"></i> رمضان ۱۴۴۷ <i class="fas fa-moon"></i>
+        </div>
     </div>
 
-    <a href="https://www.instagram.com/chaeinabat.cafe" target="_blank" class="insta-btn">📸 اینستاگرام: chaeinabat.cafe</a>
-
     <div class="category-container">
-        <div class="menu-btn" onclick="toggleMenu('sahari')">🍱 میزبان سحری <span>▼</span></div>
+        <div class="menu-btn" onclick="toggleMenu('sahari')">
+            <span><i class="fas fa-utensils"></i> میزبان سحری</span>
+            <span>▼</span>
+        </div>
         <div id="sahari" class="items-box">
-            <div class="food-item"><div class="food-title">بشقاب پروتئین</div><div class="food-desc">شامل ۲ عدد تخم‌مرغ (آب‌پز یا نیمرو)، قارچ کبابی، لوبیای گرم، پنیر به همراه کاهو یا خیار و گوجه.</div></div>
-            <div class="food-item"><div class="food-title">املت مخصوص با نان کامل</div><div class="food-desc">املت گوجه‌فرنگی یا املت تن‌ماهی و پنیر که با نان سنگک سرو می‌شود.</div></div>
+            <div class="food-item"><div class="food-title"><i class="fas fa-egg"></i> بشقاب پروتئین</div><div class="food-desc">۲ تخم‌مرغ، قارچ کبابی، لوبیای گرم، پنیر با کاهو و گوجه.</div></div>
+            <div class="food-item"><div class="food-title"><i class="fas fa-bread-slice"></i> املت مخصوص</div><div class="food-desc">املت گوجه یا تن‌ماهی با پنیر و نان سنگک.</div></div>
+            <div class="food-item"><div class="food-title"><i class="fas fa-mug-hot"></i> ماست و خیار ویژه</div><div class="food-desc">کشمش، گردو، گل‌محمدی و نعنا.</div></div>
+            <div class="food-item"><div class="food-title"><i class="fas fa-leaf"></i> دمنوش‌های گیاهی</div><div class="food-desc">نعنا، پونه و گیاهان معطر.</div></div>
         </div>
 
-        <div class="menu-btn" onclick="toggleMenu('eftar')">🌙 ضیافت افطار (سنتی) <span>▼</span></div>
+        <div class="menu-btn" onclick="toggleMenu('eftar')">
+            <span><i class="fas fa-moon"></i> ضیافت افطار (سنتی)</span>
+            <span>▼</span>
+        </div>
         <div id="eftar" class="items-box">
-            <div class="food-item"><div class="food-title">سینی مقوی</div><div class="food-desc">شامل ارده و شیره، حلوا ارده، کره محلی و عسل، به همراه تخم‌مرغ عسلی.</div></div>
-            <div class="food-item"><div class="food-title">نوشیدنی‌های گرم</div><div class="food-desc">شامل چای نبات و هل، شیر گرم و عسل با دارچین.</div></div>
+            <div class="food-item"><div class="food-title"><i class="fas fa-honey-pot"></i> سینی مقوی</div><div class="food-desc">ارده و شیره، حلوا ارده، کره محلی و عسل.</div></div>
+            <div class="food-item"><div class="food-title"><i class="fas fa-cheese"></i> سینی کلاسیک</div><div class="food-desc">پنیر لیقوان، گردو، سبزی، خرما و زولبیا بامیه.</div></div>
+            <div class="food-item"><div class="food-title"><i class="fas fa-utensil-spoon"></i> آش و حلیم روز</div><div class="food-desc">آش رشته یا شله‌قلمکار.</div></div>
+            <div class="food-item"><div class="food-title"><i class="fas fa-coffee"></i> نوشیدنی‌های گرم</div><div class="food-desc">چای نبات و هل، شیر گرم با عسل، قهوه عربی.</div></div>
         </div>
 
-        <div class="menu-btn" onclick="toggleMenu('travel')">🚗 همسفر افطار (پکیج سریع) <span>▼</span></div>
+        <div class="menu-btn" onclick="toggleMenu('travel')">
+            <span><i class="fas fa-car"></i> همسفر افطار</span>
+            <span>▼</span>
+        </div>
         <div id="travel" class="items-box">
-            <div class="food-item"><div class="food-title">🎁 هدایای همراه</div><div class="food-desc">۳ عدد خرما، یک بسته کوچک آجیل، یک فنجان چای رایگان.</div></div>
+            <div class="food-item"><div class="food-title"><i class="fas fa-sandwich"></i> گزینه سلامت</div><div class="food-desc">نان تازه، پنیر خامه‌ای، خیار و گوجه.</div></div>
+            <div class="food-item"><div class="food-title"><i class="fas fa-candy"></i> گزینه انرژی</div><div class="food-desc">لقمه حلوا ارده.</div></div>
+            <div class="food-item"><div class="food-title"><i class="fas fa-peanut"></i> گزینه پروتئین</div><div class="food-desc">لقمه حلوا شکری با کره بادام‌زمینی.</div></div>
+            <div class="food-item"><div class="food-title"><i class="fas fa-gift"></i> هدایای همراه</div><div class="food-desc">۳ خرما، آجیل، چای رایگان.</div></div>
         </div>
 
-        <div class="menu-btn" onclick="toggleMenu('sweet')">🍰 شیرین‌کام (دسر و کیک) <span>▼</span></div>
+        <div class="menu-btn" onclick="toggleMenu('sweet')">
+            <span><i class="fas fa-cake"></i> شیرین‌کام</span>
+            <span>▼</span>
+        </div>
         <div id="sweet" class="items-box">
-            <div class="food-item"><div class="food-title">سنتی</div><div class="food-desc">شله‌زرد ممتاز و فرنی داغ.</div></div>
+            <div class="food-item"><div class="food-title"><i class="fas fa-cookie"></i> سنتی</div><div class="food-desc">شله‌زرد و فرنی داغ.</div></div>
+            <div class="food-item"><div class="food-title"><i class="fas fa-cake"></i> کیک‌ها</div><div class="food-desc">شکلاتی غلیظ، موز و گردو.</div></div>
+            <div class="food-item"><div class="food-title"><i class="fas fa-ice-cream"></i> ویژه</div><div class="food-desc">پنکیک با نوتلا و موز.</div></div>
         </div>
 
-        <div class="menu-btn" onclick="toggleMenu('cold')">🍹 نوش‌داروی خنک <span>▼</span></div>
+        <div class="menu-btn" onclick="toggleMenu('cold')">
+            <span><i class="fas fa-glass-cheers"></i> نوش‌داروی خنک</span>
+            <span>▼</span>
+        </div>
         <div id="cold" class="items-box">
-            <div class="food-item"><div class="food-title">خاص و نوین</div><div class="food-desc">ترکیب‌های نوین زعفران، نارگیل، کارامل و وانیل.</div></div>
+            <div class="food-item"><div class="food-title"><i class="fas fa-glass-water"></i> میوه‌ای</div><div class="food-desc">تخم‌شربتی و خاکشیر با طعم‌های توت‌فرنگی، بلوبری و پرتقال.</div></div>
+            <div class="food-item"><div class="food-title"><i class="fas fa-cocktail"></i> خاص</div><div class="food-desc">زعفران، نارگیل، کارامل، فندق و وانیل.</div></div>
         </div>
 
-        <div class="menu-btn" onclick="toggleMenu('fun')" style="border-color: #00d4ff;">🎬 شبستانِ سرگرمی <span>▼</span></div>
+        <div class="menu-btn" onclick="toggleMenu('fun')">
+            <span><i class="fas fa-film"></i> شبستان سرگرمی</span>
+            <span>▼</span>
+        </div>
         <div id="fun" class="items-box">
-            <div class="food-item"><div class="food-title">سینما و فوتبال</div><div class="food-desc">پخش بازی‌های زنده فوتبال (ساعت ۲۱ الی ۳ بامداد).</div></div>
+            <div class="food-item"><div class="food-title"><i class="fas fa-tv"></i> سینما و فوتبال</div><div class="food-desc">پخش فیلم و بازی‌های زنده ۲۱ تا ۳ بامداد.</div></div>
+            <div class="food-item"><div class="food-title"><i class="fas fa-chess-board"></i> بازی‌های رومیزی</div><div class="food-desc">تخته‌نرد، پاسور، منچ و مارپله.</div></div>
         </div>
 
-        <div class="menu-btn" onclick="toggleMenu('hookah')">💨 محفلِ قلیان <span>▼</span></div>
+        <div class="menu-btn" onclick="toggleMenu('hookah')">
+            <span><i class="fas fa-smoking"></i> محفل قلیان</span>
+            <span>▼</span>
+        </div>
         <div id="hookah" class="items-box">
-            <div class="food-item"><div class="food-title">منوی دود</div><div class="food-desc">دوسیب، پرتقال نعنا، لیمو نعنا، تمشک بستنی و...</div></div>
+            <div class="food-item"><div class="food-title"><i class="fas fa-wind"></i> منوی دود</div><div class="food-desc">دوسیب، پرتقال، لیمو، موسکو، لاو، هندوانه یخ، تمشک بستنی، تارزان.</div></div>
+            <div class="food-item"><div class="food-title"><i class="fas fa-candy"></i> چاشنی ویژه</div><div class="food-desc">سینی لواشک و تنقلات.</div></div>
         </div>
     </div>
 
     <div class="info-container">
-        🕒 <b>ساعت کاری:</b> ۷ صبح تا ۳ بامداد<br>
-        📍 <b>آدرس:</b> کرج، دهقان ویلا دوم، خیابان شهید نیاکی<br>
-        <a href="#" class="map-button">🗺️ مسیریابی روی نقشه</a>
+        <i class="fas fa-clock"></i> <b>ساعت کاری:</b> ۷ صبح تا ۳ بامداد<br>
+        <i class="fas fa-map-marker-alt"></i> <b>آدرس:</b> کرج، دهقان ویلا دوم، خیابان شهید نیاکی<br>
+        <a href="#" class="map-button"><i class="fas fa-map"></i> مسیریابی</a>
     </div>
 
-    <a href="tel:09012323253" class="footer-call">📞 تماس و رزرو: ۰۹۰۱۲۳۲۳۲۵۳</a>
+    <a href="tel:09012323253" class="footer-call">
+        <i class="fas fa-phone-alt"></i> ۰۹۰۱۲۳۲۳۲۵۳
+    </a>
+    <a href="https://www.instagram.com/chaeinabat.cafe" target="_blank" class="insta-btn">
+        <i class="fab fa-instagram"></i> chaeinabat.cafe
+    </a>
 
-    <audio id="bgMusic" loop preload="auto">
-        <source src="https://files.catbox.moe/go3tk5.mp3" type="audio/mpeg">
-    </audio>
-    <button onclick="playMusic()" id="mBtn" style="position:fixed; bottom:25px; left:25px; border-radius:50%; width:60px; height:60px; background:#d4af37; border:none; font-size:25px; cursor:pointer; box-shadow: 0 0 20px #d4af37; z-index: 1000;">🎵</button>
+    <audio id="bgMusic" loop><source src="https://files.catbox.moe/go3tk5.mp3" type="audio/mpeg"></audio>
+    <button onclick="playMusic()" id="mBtn">🎵</button>
+
+    <footer>
+        <i class="fas fa-star-and-crescent"></i> رمضان مبارک | اصالت چرم و طلا در هر فنجان <i class="fas fa-star-and-crescent"></i>
+    </footer>
 
     <script>
-        var hasStarted = false;
-        function autoPlay() {
-            if (!hasStarted) {
-                playMusic();
-                hasStarted = true;
-            }
-        }
-
         function toggleMenu(id) {
-            var x = document.getElementById(id);
-            var boxes = document.getElementsByClassName('items-box');
-            for(var i=0; i<boxes.length; i++) { if(boxes[i].id !== id) boxes[i].style.display = 'none'; }
+            let x = document.getElementById(id);
+            let boxes = document.getElementsByClassName('items-box');
+            for(let i=0; i<boxes.length; i++) {
+                if(boxes[i].id !== id) boxes[i].style.display = 'none';
+            }
             x.style.display = (x.style.display === "block") ? "none" : "block";
         }
 
         function playMusic() {
-            var audio = document.getElementById("bgMusic");
-            var btn = document.getElementById("mBtn");
-            if (audio.paused) { 
-                audio.play().catch(function(error) { console.log("Auto-play prevented"); });
-                btn.innerHTML = "⏸️"; 
-            } else { 
-                audio.pause(); 
-                btn.innerHTML = "🎵"; 
+            let audio = document.getElementById("bgMusic");
+            let btn = document.getElementById("mBtn");
+            if (audio.paused) {
+                audio.play();
+                btn.innerHTML = "⏸️";
+            } else {
+                audio.pause();
+                btn.innerHTML = "🎵";
             }
         }
+
+        document.addEventListener('click', function(e) {
+            let audio = document.getElementById("bgMusic");
+            let musicBtn = document.getElementById("mBtn");
+            if (!musicBtn.contains(e.target) && audio.paused) {
+                audio.play();
+                musicBtn.innerHTML = "⏸️";
+            }
+        });
     </script>
 </body>
 </html>
