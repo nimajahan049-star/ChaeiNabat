@@ -20,6 +20,99 @@
             line-height: 1.8;
             overflow-x: hidden;
         }
+        /* المان‌های تزئینی */
+        .minimal-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .minimal-lines::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 30px,
+                rgba(212, 175, 55, 0.03) 30px,
+                rgba(212, 175, 55, 0.03) 60px
+            );
+            animation: moveLines 20s infinite linear;
+        }
+        @keyframes moveLines {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        .glowing-dots {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .glowing-dots div {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #d4af37;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: glow 3s infinite alternate;
+        }
+        @keyframes glow {
+            0% { opacity: 0.1; transform: scale(1); }
+            100% { opacity: 0.6; transform: scale(1.5); }
+        }
+        .concentric-circles {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            animation: breathe 8s infinite ease-in-out;
+            z-index: -1;
+        }
+        .concentric-circles::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border-radius: 50%;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            animation: breathe 8s infinite ease-in-out reverse;
+        }
+        .concentric-circles::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            right: 40px;
+            bottom: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            animation: breathe 8s infinite ease-in-out;
+        }
+        @keyframes breathe {
+            0% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.6; }
+            100% { transform: scale(1); opacity: 0.3; }
+        }
+        /* بقیه استایل‌ها */
         .leather-bg {
             position: fixed;
             top: 0;
@@ -176,6 +269,12 @@
             border: 1px dashed #d4af37;
             border-radius: 100px;
             pointer-events: none;
+            animation: dashMove 10s infinite linear;
+        }
+        @keyframes dashMove {
+            0% { border-color: #d4af37; }
+            50% { border-color: #b8860b; }
+            100% { border-color: #d4af37; }
         }
         .menu-btn:hover {
             transform: translateY(-3px);
@@ -191,6 +290,14 @@
             margin-top: -20px;
             margin-bottom: 30px;
             box-shadow: 0 0 50px rgba(212,175,55,0.3), inset 0 0 20px rgba(212,175,55,0.2);
+        }
+        .section-tagline {
+            text-align: center;
+            color: #b8860b;
+            font-style: italic;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
         }
         .food-item {
             border-bottom: 1px solid #d4af37;
@@ -212,6 +319,7 @@
             text-align: justify;
             margin-top: 8px;
             padding-right: 35px;
+            line-height: 1.6;
         }
         .info-container {
             background: rgba(70,40,30,0.8);
@@ -283,7 +391,7 @@
             background: #2c1e1a;
             padding: 0 20px;
         }
-        #mBtn {
+        .music-control {
             position: fixed;
             bottom: 25px;
             left: 25px;
@@ -298,11 +406,25 @@
             z-index: 1000;
             transition: 0.3s;
             color: #2c1e1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        #mBtn:hover { transform: scale(1.1) rotate(5deg); }
+        .music-control:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+        .music-control.playing {
+            background: #b8860b;
+            box-shadow: 0 0 80px #ffaa00;
+        }
     </style>
 </head>
 <body>
+    <!-- المان‌های تزئینی -->
+    <div class="minimal-lines"></div>
+    <div class="glowing-dots" id="dotContainer"></div>
+    <div class="concentric-circles"></div>
+
     <div class="leather-bg"></div>
     <div class="pattern"></div>
 
@@ -323,74 +445,151 @@
     </div>
 
     <div class="category-container">
+        <!-- میزبان سحری -->
         <div class="menu-btn" onclick="toggleMenu('sahari')">
             <span><i class="fas fa-utensils"></i> میزبان سحری</span>
             <span>▼</span>
         </div>
         <div id="sahari" class="items-box">
-            <div class="food-item"><div class="food-title"><i class="fas fa-egg"></i> بشقاب پروتئین</div><div class="food-desc">۲ تخم‌مرغ، قارچ کبابی، لوبیای گرم، پنیر با کاهو و گوجه.</div></div>
-            <div class="food-item"><div class="food-title"><i class="fas fa-bread-slice"></i> املت مخصوص</div><div class="food-desc">املت گوجه یا تن‌ماهی با پنیر و نان سنگک.</div></div>
-            <div class="food-item"><div class="food-title"><i class="fas fa-mug-hot"></i> ماست و خیار ویژه</div><div class="food-desc">کشمش، گردو، گل‌محمدی و نعنا.</div></div>
-            <div class="food-item"><div class="food-title"><i class="fas fa-leaf"></i> دمنوش‌های گیاهی</div><div class="food-desc">نعنا، پونه و گیاهان معطر.</div></div>
+            <div class="section-tagline">✨ سفره‌ای برای روزه‌داران ✨</div>
+            <div class="food-item">
+                <div class="food-title"><i class="fas fa-egg"></i> بشقاب پروتئین</div>
+                <div class="food-desc">شاهکار انرژی برای شروع روز: دو تخم‌مرغ تازه (آب‌پز یا نیمرو به انتخاب شما)، قارچ‌های کبابی با طعم دود، لوبیای گرم خانگی، پنیر گوسفندی و سبزیجات تازه شامل کاهوی ترد، خیار و گوجه‌های رنگارنگ.</div>
+            </div>
+            <div class="food-item">
+                <div class="food-title"><i class="fas fa-bread-slice"></i> املت مخصوص با نان کامل</div>
+                <div class="food-desc">املتی فراتر از معمول: ترکیب تخم‌مرغ با گوجه‌های آبدار یا تن‌ماهی و پنیر، مزه‌دار شده با ادویه‌های محرمانه چای‌نبات، در کنار نان سنگک داغ که تا ساعات طولانی شما را سیر نگه می‌دارد.</div>
+            </div>
+            <div class="food-item">
+                <div class="food-title"><i class="fas fa-mug-hot"></i> کاسه ماست و خیار مخصوص</div>
+                <div class="food-desc">یک معجون خنک و مقوی: ماست ارگانیک، خیار رنده‌شده، کشمش پلویی، گردوی تازه، گل‌محمدی معطر و نعنای خشک؛ انتخابی ایده‌آل برای روزهای گرم روزه‌داری.</div>
+            </div>
+            <div class="food-item">
+                <div class="food-title"><i class="fas fa-leaf"></i> سینی دمنوش‌های گیاهی</div>
+                <div class="food-desc">مجموعه‌ای از اصیل‌ترین دمنوش‌های ایران: نعنای تازه، پونه کوهی، آویشن شیرازی و به‌لیمو که هرکدام با عشق در قوری‌های سفالی دم می‌کشند تا آرامش را به سفره سحری شما بیاورند.</div>
+            </div>
         </div>
 
+        <!-- ضیافت افطار -->
         <div class="menu-btn" onclick="toggleMenu('eftar')">
             <span><i class="fas fa-moon"></i> ضیافت افطار (سنتی)</span>
             <span>▼</span>
         </div>
         <div id="eftar" class="items-box">
-            <div class="food-item"><div class="food-title"><i class="fas fa-honey-pot"></i> سینی مقوی</div><div class="food-desc">ارده و شیره، حلوا ارده، کره محلی و عسل.</div></div>
-            <div class="food-item"><div class="food-title"><i class="fas fa-cheese"></i> سینی کلاسیک</div><div class="food-desc">پنیر لیقوان، گردو، سبزی، خرما و زولبیا بامیه.</div></div>
-            <div class="food-item"><div class="food-title"><i class="fas fa-utensil-spoon"></i> آش و حلیم روز</div><div class="food-desc">آش رشته یا شله‌قلمکار.</div></div>
-            <div class="food-item"><div class="food-title"><i class="fas fa-coffee"></i> نوشیدنی‌های گرم</div><div class="food-desc">چای نبات و هل، شیر گرم با عسل، قهوه عربی.</div></div>
+            <div class="section-tagline">🌙 گنجینه‌ی طعم‌های سنتی 🌙</div>
+            <div class="food-item">
+                <div class="food-title"><i class="fas fa-honey-pot"></i> سینی مقوی</div>
+                <div class="food-desc">گنجینه‌ای از انرژی: ارده و شیره‌ی انگور ارگانیک، حلوا ارده‌ی دست‌ساز، کره‌ی محلی گاو با عسل کوهستان، و یک تخم‌مرغ عسلی که دل را زنده می‌کند.</div>
+            </div>
+            <div class="food-item">
+                <div class="food-title"><i class="fas fa-cheese"></i> سینی کلاسیک</div>
+                <div class="food-desc">تلفیق اصالت و سادگی: نان سنگک گرم و ترد، پنیر لیقوان کهنه، گردوی تازه‌شکسته، سبزی خوردن معطر، خیار و گوجه‌ی بوته‌ای، همراه با خرمای کبکاب و زولبیا بامیه‌ی ترد.</div>
+            </div>
+            <div class="food-item">
+                <div class="food-title"><i class="fas fa-utensil-spoon"></i> آش و حلیم روز</div>
+                <div class="food-desc">یک کاسه عشق: آش رشته‌ی محلی با کشک و نعناع داغ، یا حلیم گندم و گوشت که از شب قبل با حوصله پخته شده؛ در پیاله‌های سفالی تک‌نفره سرو می‌شود.</div>
+            </div>
+            <div class="food-item">
+                <div class="food-title"><i class="fas fa-coffee"></i> نوشیدنی‌های گرم</div>
+                <div class="food-desc">چای نبات با هل و نبات زعفرانی، شیر گرم ارگانیک با عسل و دارچین، و قهوه‌ی عربی (دله) با هل کوبیده که عطر آن تا دقیقه‌ها در فضا می‌پیچد.</div>
+            </div>
         </div>
 
+        <!-- همسفر افطار -->
         <div class="menu-btn" onclick="toggleMenu('travel')">
             <span><i class="fas fa-car"></i> همسفر افطار</span>
             <span>▼</span>
         </div>
         <div id="travel" class="items-box">
-            <div class="food-item"><div class="food-title"><i class="fas fa-sandwich"></i> گزینه سلامت</div><div class="food-desc">نان تازه، پنیر خامه‌ای، خیار و گوجه.</div></div>
-            <div class="food-item"><div class="food-title"><i class="fas fa-candy"></i> گزینه انرژی</div><div class="food-desc">لقمه حلوا ارده.</div></div>
-            <div class="food-item"><div class="food-title"><i class="fas fa-peanut"></i> گزینه پروتئین</div><div class="food-desc">لقمه حلوا شکری با کره بادام‌زمینی.</div></div>
-            <div class="food-item"><div class="food-title"><i class="fas fa-gift"></i> هدایای همراه</div><div class="food-desc">۳ خرما، آجیل، چای رایگان.</div></div>
+            <div class="section-tagline">🚗 همراه همیشگی سفر 🚗</div>
+            <div class="food-item">
+                <div class="food-title"><i class="fas fa-sandwich"></i> گزینه سلامت</div>
+                <div class="food-desc">نان تازه‌ی محلی با پنیر خامه‌ای کم‌چرب، خیار و گوجه‌ی تازه، کاهوی ترد و کمی سبزی معطر؛ انتخابی سبک اما مقوی.</div>
+            </div>
+            <div class="food-item">
+                <div class="food-title"><i class="fas fa-candy"></i> گزینه انرژی</div>
+                <div class="food-desc">لقمه‌های حلوا ارده با کنجد و عسل که در دهان آب می‌شوند و انرژی لازم برای چندین ساعت رانندگی را تأمین می‌کنند.</div>
+            </div>
+            <div class="food-item">
+                <div class="food-title"><i class="fas fa-peanut"></i> گزینه پروتئین</div>
+                <div class="food-desc">لقمه‌های حلوا شکری با کره بادام‌زمینی خانگی یا کره‌ی نارگیل؛ یک بمب انرژی برای روزه‌داران پرتحرک.</div>
+            </div>
+            <div class="food-item">
+                <div class="food-title"><i class="fas fa-gift"></i> هدایای همراه</div>
+                <div class="food-desc">۳ عدد خرما، یک بسته‌ی کوچک آجیل مخلوط، یک فنجان چای نبات رایگان و دستمال مرطوب گیاهی؛ هدیه‌ی ما به مسافران روزه‌دار.</div>
+            </div>
         </div>
 
+        <!-- شیرین‌کام -->
         <div class="menu-btn" onclick="toggleMenu('sweet')">
             <span><i class="fas fa-cake"></i> شیرین‌کام</span>
             <span>▼</span>
         </div>
         <div id="sweet" class="items-box">
-            <div class="food-item"><div class="food-title"><i class="fas fa-cookie"></i> سنتی</div><div class="food-desc">شله‌زرد و فرنی داغ.</div></div>
-            <div class="food-item"><div class="food-title"><i class="fas fa-cake"></i> کیک‌ها</div><div class="food-desc">شکلاتی غلیظ، موز و گردو.</div></div>
-            <div class="food-item"><div class="food-title"><i class="fas fa-ice-cream"></i> ویژه</div><div class="food-desc">پنکیک با نوتلا و موز.</div></div>
+            <div class="section-tagline">🍰 پایان شیرین هر وعده 🍰</div>
+            <div class="food-item">
+                <div class="food-title"><i class="fas fa-cookie"></i> سنتی</div>
+                <div class="food-desc">شله‌زرد ممتاز با خلال بادام و دارچین، فرنی داغ با گلاب و هل که یادآور شب‌های قدیم است.</div>
+            </div>
+            <div class="food-item">
+                <div class="food-title"><i class="fas fa-cake"></i> کیک‌ها</div>
+                <div class="food-desc">کیک شکلاتی غلیظ با گاناش داغ، کیک موز و گردو با بافت نرم و مرطوب؛ هر برش یک اثر هنری است.</div>
+            </div>
+            <div class="food-item">
+                <div class="food-title"><i class="fas fa-ice-cream"></i> ویژه</div>
+                <div class="food-desc">پنکیک دست‌ساز با موز کاراملی، نوتلا و مغز گردوی تازه؛ برای لحظات خاص.</div>
+            </div>
         </div>
 
+        <!-- نوش‌داروی خنک -->
         <div class="menu-btn" onclick="toggleMenu('cold')">
             <span><i class="fas fa-glass-cheers"></i> نوش‌داروی خنک</span>
             <span>▼</span>
         </div>
         <div id="cold" class="items-box">
-            <div class="food-item"><div class="food-title"><i class="fas fa-glass-water"></i> میوه‌ای</div><div class="food-desc">تخم‌شربتی و خاکشیر با طعم‌های توت‌فرنگی، بلوبری و پرتقال.</div></div>
-            <div class="food-item"><div class="food-title"><i class="fas fa-cocktail"></i> خاص</div><div class="food-desc">زعفران، نارگیل، کارامل، فندق و وانیل.</div></div>
+            <div class="section-tagline">🍹 طراوت در هر جرعه 🍹</div>
+            <div class="food-item">
+                <div class="food-title"><i class="fas fa-glass-water"></i> میوه‌ای</div>
+                <div class="food-desc">تخم‌شربتی و خاکشیر با طعم‌های طبیعی توت‌فرنگی، بلوبری و پرتقال؛ یک انفجار خنک‌کننده.</div>
+            </div>
+            <div class="food-item">
+                <div class="food-title"><i class="fas fa-cocktail"></i> خاص</div>
+                <div class="food-desc">ترکیبات نوین: زعفران و یخ، نارگیل و آناناس، کارامل و فندق، و وانیل ماگاسکار؛ هر کدام یک دنیای طعم.</div>
+            </div>
         </div>
 
+        <!-- شبستان سرگرمی -->
         <div class="menu-btn" onclick="toggleMenu('fun')">
             <span><i class="fas fa-film"></i> شبستان سرگرمی</span>
             <span>▼</span>
         </div>
         <div id="fun" class="items-box">
-            <div class="food-item"><div class="food-title"><i class="fas fa-tv"></i> سینما و فوتبال</div><div class="food-desc">پخش فیلم و بازی‌های زنده ۲۱ تا ۳ بامداد.</div></div>
-            <div class="food-item"><div class="food-title"><i class="fas fa-chess-board"></i> بازی‌های رومیزی</div><div class="food-desc">تخته‌نرد، پاسور، منچ و مارپله.</div></div>
+            <div class="section-tagline">🎬 شبی به یادماندنی 🎬</div>
+            <div class="food-item">
+                <div class="food-title"><i class="fas fa-tv"></i> سینما و فوتبال</div>
+                <div class="food-desc">پخش فیلم‌های روز سینمای ایران و جهان، همراه با پخش زنده‌ی بازی‌های مهم فوتبال از ساعت ۲۱ تا ۳ بامداد.</div>
+            </div>
+            <div class="food-item">
+                <div class="food-title"><i class="fas fa-chess-board"></i> بازی‌های رومیزی</div>
+                <div class="food-desc">مجموعه‌ای از بازی‌های فکری و گروهی: تخته‌نارد، پاسور، منچ، مارپله و شطرنج؛ برای لحظات خوش در کنار دوستان.</div>
+            </div>
         </div>
 
+        <!-- محفل قلیان -->
         <div class="menu-btn" onclick="toggleMenu('hookah')">
             <span><i class="fas fa-smoking"></i> محفل قلیان</span>
             <span>▼</span>
         </div>
         <div id="hookah" class="items-box">
-            <div class="food-item"><div class="food-title"><i class="fas fa-wind"></i> منوی دود</div><div class="food-desc">دوسیب، پرتقال، لیمو، موسکو، لاو، هندوانه یخ، تمشک بستنی، تارزان.</div></div>
-            <div class="food-item"><div class="food-title"><i class="fas fa-candy"></i> چاشنی ویژه</div><div class="food-desc">سینی لواشک و تنقلات.</div></div>
+            <div class="section-tagline">💨 فرصتی برای رهایی 💨</div>
+            <div class="food-item">
+                <div class="food-title"><i class="fas fa-wind"></i> منوی دود</div>
+                <div class="food-desc">طعم‌های ویژه: دو سیب (ساده، آلبالو، شلیل، یخ)، پرتقال (ساده، نعنا)، لیمو (ساده، نعنا)، موسکو، لاو، هندوانه یخ، تمشک بستنی و تارزان.</div>
+            </div>
+            <div class="food-item">
+                <div class="food-title"><i class="fas fa-candy"></i> چاشنی ویژه</div>
+                <div class="food-desc">سرو با سینی لواشک‌های ترش محلی، میوه‌های فصل و تنقلات متنوع تا تجربه‌ای کامل داشته باشید.</div>
+            </div>
         </div>
     </div>
 
@@ -407,14 +606,33 @@
         <i class="fab fa-instagram"></i> chaeinabat.cafe
     </a>
 
-    <audio id="bgMusic" loop><source src="https://files.catbox.moe/go3tk5.mp3" type="audio/mpeg"></audio>
-    <button onclick="playMusic()" id="mBtn">🎵</button>
+    <div class="music-control" onclick="toggleMusic()" id="musicBtn">🎵</div>
+    <audio id="myAudio" loop preload="auto">
+        <source src="https://files.catbox.moe/go3tk5.mp3" type="audio/mpeg">
+        <source src="https://nimajahan049-star.github.io/ChaeiNabat/music.mp3" type="audio/mpeg">
+    </audio>
 
     <footer>
         <i class="fas fa-star-and-crescent"></i> رمضان مبارک | اصالت چرم و طلا در هر فنجان <i class="fas fa-star-and-crescent"></i>
     </footer>
 
     <script>
+        function createDots() {
+            const container = document.getElementById('dotContainer');
+            for (let i = 0; i < 30; i++) {
+                let dot = document.createElement('div');
+                let x = Math.random() * 100;
+                let y = Math.random() * 100;
+                let delay = Math.random() * 5;
+                let duration = 2 + Math.random() * 3;
+                dot.style.left = x + '%';
+                dot.style.top = y + '%';
+                dot.style.animation = `glow ${duration}s infinite alternate ${delay}s`;
+                container.appendChild(dot);
+            }
+        }
+        createDots();
+
         function toggleMenu(id) {
             let x = document.getElementById(id);
             let boxes = document.getElementsByClassName('items-box');
@@ -424,24 +642,34 @@
             x.style.display = (x.style.display === "block") ? "none" : "block";
         }
 
-        function playMusic() {
-            let audio = document.getElementById("bgMusic");
-            let btn = document.getElementById("mBtn");
+        function toggleMusic() {
+            var audio = document.getElementById("myAudio");
+            var btn = document.getElementById("musicBtn");
+            
             if (audio.paused) {
-                audio.play();
-                btn.innerHTML = "⏸️";
+                audio.play().then(() => {
+                    btn.innerHTML = "⏸️";
+                    btn.classList.add("playing");
+                }).catch(error => {
+                    console.log("پخش خودکار توسط مرورگر مسدود شد.");
+                });
             } else {
                 audio.pause();
                 btn.innerHTML = "🎵";
+                btn.classList.remove("playing");
             }
         }
 
         document.addEventListener('click', function(e) {
-            let audio = document.getElementById("bgMusic");
-            let musicBtn = document.getElementById("mBtn");
+            let audio = document.getElementById("myAudio");
+            let musicBtn = document.getElementById("musicBtn");
             if (!musicBtn.contains(e.target) && audio.paused) {
-                audio.play();
-                musicBtn.innerHTML = "⏸️";
+                audio.play().then(() => {
+                    musicBtn.innerHTML = "⏸️";
+                    musicBtn.classList.add("playing");
+                }).catch(error => {
+                    console.log("پخش خودکار توسط مرورگر مسدود شد.");
+                });
             }
         });
     </script>
